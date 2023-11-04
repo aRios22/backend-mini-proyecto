@@ -1,10 +1,7 @@
 package com.unicauca.backendminiproyecto.domain;
 
-import lombok.Getter;
-import lombok.Setter;
-
+import java.time.LocalDateTime;
 import java.util.Set;
-
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -13,29 +10,27 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-
+import lombok.Getter;
+import lombok.Setter;
 
 @Getter
 @Setter
 @Entity
-@Table(name = "usuario")
-public class Usuario {
-    
+@Table(name = "proveedor")
+public class Proveedor {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "nombre")
+	@Column(name = "nombre")
     private String nombre;
 
-    @Column(name = "usuario")
-    private String usuario;
+    @Column(name = "fecha")
+    private LocalDateTime fechaHoraAprobacion; 
 
-    @Column(name = "clave")
-    private String clave;
-
-    @OneToMany(mappedBy="usuario")
-    private Set<ListaCompras> listas;
-
+    @OneToMany(mappedBy="proveedor")
+    private Set<Producto> productos;
+    
 }
