@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.unicauca.backendminiproyecto.domain.ListaCompras;
 import com.unicauca.backendminiproyecto.dto.request.ListaCompraRequest;
+import com.unicauca.backendminiproyecto.dto.response.ListaCompraProductosResponse;
 import com.unicauca.backendminiproyecto.dto.response.ListaCompraResponse;
 import com.unicauca.backendminiproyecto.service.interfaz.ListaCompraService;
 
@@ -32,6 +33,15 @@ public class ListaComprasController {
         List<ListaCompraResponse> response= listaCompraService.findAllUsuario(usuario);
         if(response==null){
             return  ResponseEntity.status(HttpStatus.NOT_FOUND).body("No hay listas.");
+        }
+        return ResponseEntity.ok(response); 
+    }
+
+    @GetMapping("/listar-productos/")
+    public ResponseEntity<?> getProductosListasUsuario(@RequestParam("usuario") String usuario, @RequestParam("listname") String listname) {
+        List<ListaCompraProductosResponse> response= listaCompraService.findAllProductosListaUsuario(usuario, listname);
+        if(response==null){
+            return  ResponseEntity.status(HttpStatus.NOT_FOUND).body("No hay Productos.");
         }
         return ResponseEntity.ok(response); 
     }

@@ -22,7 +22,7 @@ public class ListaProducto {
     @ManyToOne
     @MapsId("id_lista")
     @JoinColumn(name = "id_lista")
-    ListaCompras administrador;
+    ListaCompras listas;
 
     @ManyToOne
     @MapsId("id_producto")

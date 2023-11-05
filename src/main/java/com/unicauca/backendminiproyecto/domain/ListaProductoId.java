@@ -21,7 +21,7 @@ public class ListaProductoId implements Serializable{
     long id_lista;
 
     @Column(name = "id_producto")
-    String id_producto;
+    long id_producto;
 
 
     @Override
@@ -36,6 +36,6 @@ public class ListaProductoId implements Serializable{
         if (this.getClass() != o.getClass()) return false;
         ListaProductoId user = (ListaProductoId) o;
         return id_lista == user.id_lista 
-          && (id_producto.equals(user.id_producto));
+          && (id_producto==user.id_producto);
     }
 }

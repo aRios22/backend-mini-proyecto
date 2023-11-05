@@ -8,11 +8,15 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.unicauca.backendminiproyecto.domain.ListaCompras;
+import com.unicauca.backendminiproyecto.domain.ListaProducto;
 import com.unicauca.backendminiproyecto.domain.Usuario;
 import com.unicauca.backendminiproyecto.dto.request.ListaCompraRequest;
+import com.unicauca.backendminiproyecto.dto.response.ListaCompraProductosResponse;
 import com.unicauca.backendminiproyecto.dto.response.ListaCompraResponse;
 import com.unicauca.backendminiproyecto.mapper.ListaCompraMapper;
+import com.unicauca.backendminiproyecto.mapper.ListaCompraProductosMapper;
 import com.unicauca.backendminiproyecto.repository.ListaComprasRepository;
+import com.unicauca.backendminiproyecto.repository.ProductoRepository;
 import com.unicauca.backendminiproyecto.repository.UserRepository;
 import com.unicauca.backendminiproyecto.service.interfaz.ListaCompraService;
 
@@ -25,6 +29,7 @@ public class ListaCompraServiceImpl implements ListaCompraService{
 
     private UserRepository userRepository;
     private ListaComprasRepository listaComprasRepository;
+    private ProductoRepository productoRepository;
 
     @Override
     public List<ListaCompraResponse> findAllUsuario(String username) {
@@ -57,6 +62,20 @@ public class ListaCompraServiceImpl implements ListaCompraService{
         ListaCompras savedLista = listaComprasRepository.save(lista);
 
         return ListaCompraMapper.mapearResponse(savedLista);
+    }
+
+    @Override
+    public List<ListaCompraProductosResponse> findAllProductosListaUsuario(String username, String listname) {
+        Usuario usuario = this.userRepository.findByUsuario(username).orElseThrow(() -> new UsernameNotFoundException("El usuario no existe"));
+        ListaCompras lista=this.listaComprasRepository.findByNombreAndUsuario(listname, usuario);
+        if (lista==null) {
+            return null;
+        }
+        List<ListaCompraProductosResponse> response = new ArrayList<ListaCompraProductosResponse>();
+        for (ListaProducto listaProducto: lista.getListas()) {
+            response.add(ListaCompraProductosMapper.mapearResponse(this.productoRepository.getById(listaProducto.getId().getId_producto()), listaProducto));
+        }
+        return response;
     }
     
 }
