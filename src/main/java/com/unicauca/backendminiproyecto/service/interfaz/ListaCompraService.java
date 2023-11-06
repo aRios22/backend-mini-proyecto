@@ -17,5 +17,7 @@ public interface ListaCompraService {
     ListaCompraResponse registrarLista(ListaCompraRequest listaRequest, String username);
 
     List<ListaCompraProductosResponse> findAllProductosListaUsuario(String usuario, String listname);
-    
+
+    Boolean eliminarLista(String usuario, ListaCompras listaComprasVar);
+
 }
