@@ -7,9 +7,15 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MapsId;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Setter
 @Entity
@@ -27,7 +33,7 @@ public class ListaProducto {
     @ManyToOne
     @MapsId("id_producto")
     @JoinColumn(name = "id_producto")
-    Producto empadronado;
+    Producto producto;
 
     @Column(name = "estado")
     private String estado; 

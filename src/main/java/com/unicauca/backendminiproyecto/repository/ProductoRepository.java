@@ -7,5 +7,9 @@ import com.unicauca.backendminiproyecto.domain.Producto;
 
 @Repository
 public interface ProductoRepository  extends JpaRepository<Producto, Long>{
+
+    Producto findByNombre(String producto);
+
+    Producto findByNombre(Producto producto);
     
 }

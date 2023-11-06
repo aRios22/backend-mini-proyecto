@@ -41,7 +41,7 @@ public class ListaComprasController {
     public ResponseEntity<?> getProductosListasUsuario(@RequestParam("usuario") String usuario, @RequestParam("listname") String listname) {
         List<ListaCompraProductosResponse> response= listaCompraService.findAllProductosListaUsuario(usuario, listname);
         if(response==null){
-            return  ResponseEntity.status(HttpStatus.NOT_FOUND).body("No hay Productos.");
+            return  ResponseEntity.status(HttpStatus.NOT_FOUND).body("No hay Productos Registrados.");
         }
         return ResponseEntity.ok(response); 
     }
