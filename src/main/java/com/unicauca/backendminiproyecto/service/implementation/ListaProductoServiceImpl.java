@@ -51,5 +51,21 @@ public class ListaProductoServiceImpl implements ListaProductoService{
         listaProductoRepository.delete(lista);
         return true;
     }
+
+    @Override
+    public Boolean shopListaProducto(String producto, String usuario, ListaCompras listaComprasVar) {
+        Producto productoVar = this.productoRepository.findByNombre(producto);
+        if (productoVar==null) {
+            return false;
+        }
+        ListaProductoId idListaProducto=new ListaProductoId(listaComprasVar.getId(), productoVar.getId());
+        ListaProducto lista = this.listaProductoRepository.findById(idListaProducto).get();
+        if(lista==null){
+            return false;
+        }
+        lista.setEstado("Comprado");
+        listaProductoRepository.save(lista);
+        return true;
+    }
     
 }

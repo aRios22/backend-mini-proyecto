@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import com.unicauca.backendminiproyecto.domain.ListaCompras;
 import com.unicauca.backendminiproyecto.domain.ListaProducto;
-import com.unicauca.backendminiproyecto.domain.ListaProductoId;
 import com.unicauca.backendminiproyecto.domain.Usuario;
 import com.unicauca.backendminiproyecto.dto.request.ListaCompraRequest;
 import com.unicauca.backendminiproyecto.dto.response.ListaCompraProductosResponse;

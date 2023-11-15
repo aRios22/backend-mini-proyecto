@@ -9,5 +9,7 @@ public interface ListaProductoService {
             ListaCompras listaComprasVar);
 
     Boolean eliminarListaProducto(String producto, String usuario, ListaCompras listaComprasVar);
+
+    Boolean shopListaProducto(String producto, String usuario, ListaCompras listaComprasVar);
     
 }

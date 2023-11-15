@@ -4,8 +4,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -41,7 +42,7 @@ public class ListaProductoController {
     }
 
     @DeleteMapping("/eliminar/")
-    public ResponseEntity<?> eliminarEmpadronado(@RequestParam("usuario") String usuario, @RequestParam("listacompras") String listaCompras, @RequestParam("producto") String producto) {
+    public ResponseEntity<?> eliminarListaProducto(@RequestParam("usuario") String usuario, @RequestParam("listacompras") String listaCompras, @RequestParam("producto") String producto) {
         ListaCompras listaComprasVar = listaCompraService.findByNombre(listaCompras, usuario);
         if(listaCompras==null){
             return  ResponseEntity.status(HttpStatus.CONFLICT).body("No existe una lista de compra con se nombre.");
@@ -50,6 +51,21 @@ public class ListaProductoController {
         Boolean response = listaProductoService.eliminarListaProducto(producto, usuario, listaComprasVar);
         if (!response) {
             return  ResponseEntity.status(HttpStatus.CONFLICT).body("Error durante la eliminación");
+        }
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/comprar/")
+    public ResponseEntity<?> shopListaProducto(@RequestParam("usuario") String usuario, @RequestParam("listacompras") String listaCompras, @RequestParam("producto") String producto) {
+        
+        ListaCompras listaComprasVar = listaCompraService.findByNombre(listaCompras, usuario);
+        if(listaCompras==null){
+            return  ResponseEntity.status(HttpStatus.CONFLICT).body("No existe una lista de compra con se nombre.");
+        }
+        
+        Boolean response = listaProductoService.shopListaProducto(producto, usuario, listaComprasVar);
+        if (!response) {
+            return  ResponseEntity.status(HttpStatus.CONFLICT).body("Error durante la actualizacón");
         }
         return ResponseEntity.ok(response);
     }
